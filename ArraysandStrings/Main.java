@@ -7,8 +7,14 @@ class Main {
     public static void main(String[] args) {
         //System.out.println(palindromePermutation("tact coa"));
         //System.out.println(oneArray("pale", "palesd"));
-        System.out.println(stringCompression("aabcccccaaa"));
-
+        //System.out.println(stringCompression("aabcccccaaa"));
+        int[][] arr = { { 0, 2 }, { 3, 4 } }; 
+        int[][] temp = zeroMatrix(arr);
+        for(int i=0; i < temp.length ; i++) {
+            for(int j=0; j<temp[i].length; j++){
+                System.out.println(temp[i][j]);
+            }
+        }
     }
 
     /**
@@ -168,8 +174,33 @@ class Main {
      * Write an algorithm such that is an element is an MxN matrix is 0, 
      * its entire row and column are set to 0.
      */
-    public static void zeroMatrix(int[][] a) {
-        
+    public static int[][] setColumnZero(int[][] a, int row, int col) {
+        for(int curr = row; curr < a.length; curr++) {
+            a[curr][col] = 0;
+        }
+        return a;
+    }
+
+    // public static int[][] setRowZero(int[][] a, int row, int col) {
+    //     for(int curr = col; curr<a[row].length; curr++) {
+    //         a[row][curr] = 0;
+    //     }
+    //     return a;
+    // }
+
+    public static int[][] zeroMatrix(int[][] a) {
+        int[][] zeroes = a;
+        for(int row = 0; row < a.length; row++) {
+            for(int col=0; col < a[row].length; col++){
+                if(a[row][col] == 0) {
+                    zeroes = setColumnZero(zeroes, row, col);
+                    //zeroes = setRowZero(zeroes, row, col);
+                    Arrays.fill(zeroes[row], 0);
+                    continue;
+                }
+            }
+        }
+        return zeroes;
     }
 
     /**
