@@ -7,14 +7,14 @@ class Main {
     public static void main(String[] args) {
         //System.out.println(palindromePermutation("tact coa"));
         //System.out.println(oneArray("pale", "palesd"));
-        //System.out.println(stringCompression("aabcccccaaa"));
-        int[][] arr = { { 0, 2 }, { 3, 4 } }; 
-        int[][] temp = zeroMatrix(arr);
-        for(int i=0; i < temp.length ; i++) {
-            for(int j=0; j<temp[i].length; j++){
-                System.out.println(temp[i][j]);
-            }
-        }
+        System.out.println(stringCompression("abcccccaaa"));
+        // int[][] arr = { { 0, 2 }, { 3, 4 } }; 
+        // int[][] temp = zeroMatrix(arr);
+        // for(int i=0; i < temp.length ; i++) {
+        //     for(int j=0; j<temp[i].length; j++){
+        //         System.out.println(temp[i][j]);
+        //     }
+        // }
     }
 
     /**
@@ -37,19 +37,30 @@ class Main {
 
     /**
      * Given two strings, write a method to decide if one permutation of the other. 
+     * Solution: HashMap < char, int> int for number of occurances, < 0 or != 0 
      */
     public static boolean checkPermutation(String s1, String s2) {
-        HashSet<Char> unique = new HashSet<>();
-        if (Math.abs(s1.length - s2.length) != 0) {
+        HashMap<Character, Integer> occurances = new HashMap<>();
+        if (s1.length != s2.length) {
             return false;
         }
         char[] letters = s1.toCharArray();
         for(char curr : letters) {
-            unique.add(curr);
+            int currVal = occurances.putIfAbsent(curr, 1);
+            occurances.put(curr, currVal+1);
         }
         char[] s2letters = s2.toCharArray();
         for(char curr : s2letters) {
-            if (!unique.contains(curr)) {
+            if(occurances.containsKey(curr)) {
+               int val = occurances.get(curr);
+               if (val < 0) {
+                   return false;
+               }
+               occurances.put(curr, val--);
+            }
+        }
+        for(Map.Entry<Character, Integer> entry : occurances.entrySet()) {
+            if (entry.getValue() != 0) {
                 return false;
             }
         }
@@ -59,15 +70,28 @@ class Main {
     /**
      * Write a method to replace all spaces in a string with '%20'.
      * Use a character array.
+     * Solution: move backawards
      */
     public static String urlify(String s1) {
         String replacedString = "";
         char[] temp = s1.toCharArray();
-        for(int i=0; i<temp.length; i++) {
-            if (temp[i] == " ") {
-                replacedString += "%20";
+        int numspaces = 0;
+        for(char curr : temp) {
+            if (curr == " ") {
+                numspaces++;
             }
-            replacedString+=temp[i];
+        }
+        int padding = temp.length + numspaces - 1;
+        for(int i=temp.length-1; i>=0; i--) {
+            if(temp[i] != " "){
+                temp[padding--] = '0';
+                temp[padding--] = '2';
+                temp[padding--] = '%';
+
+            } else {
+                temp[padding] = temp[i];
+            }
+            --padding;
         }
         return replacedString;
     }
@@ -78,6 +102,8 @@ class Main {
      * A palindrome is a word or phrase that is the same forwards and backwards.
      * A permutation is a rearrangement of letters.
      * The palindrome does not need to be limited to just dictionary words.
+     * if the length is even, all even occurances
+     * if the length is odd, only one occurance
      */
     public static boolean palindromePermutation(String s1) {
         HashMap<Character, Integer> letters = new HashMap<>();
@@ -89,12 +115,19 @@ class Main {
                 letters.put(curr, 1);
             }
         }
+        int occurances = 0;
         for(Map.Entry<Character, Integer> entry : letters.entrySet()) {
-            if (entry.getValue() == 1) {
-                continue;
-            }
-            if(entry.getValue() % 2 == 1) {
-                return false;
+            if(letters.length % 2 == 0) {
+                if(entry.getValue() % 2 != 0) {
+                    return false;
+                }
+            } else {
+                if (entry.getValue() % 2 == 1) {
+                    occurances++;
+                }
+                if (occurances > 1) {
+                    return false;
+                }
             }
         }
         return true;
@@ -108,23 +141,21 @@ class Main {
      * pales, pale -> true
      * pale, bale -> true
      * pale, bake -> false
+     * solution: iterate through s1 and s2
      */
     public static boolean oneArray(String s1, String s2) {
-        HashSet<Character> letters = new HashSet();
-        char[] temp = s1.toCharArray();
-        for(char curr : temp) {
-            letters.add(curr);
-        }
         int edits = 0;
-        char[] compareString = s2.toCharArray();
-        for(char curr : compareString) {
-            if (!letters.contains(curr)) {
-                edits++;
+        for(char c1 : s1.toCharArray()) {
+            for(char c2 : s2.toCharArray()){
+                if (c1 != c2) {
+                    edits++;
+                }
                 if (edits > 1) {
                     return false;
                 }
             }
         }
+        
         return true;
     }
 
