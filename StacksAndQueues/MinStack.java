@@ -23,7 +23,7 @@ public class MinStack {
 
     public int pop() throws EmptyStackException {
         int value = data.removeLast();
-        if (value >= history.peekLast()) {
+        if (value == history.peekLast()) {
             history.remove();
         }
         return value;
