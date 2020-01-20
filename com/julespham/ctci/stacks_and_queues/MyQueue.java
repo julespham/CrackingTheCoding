@@ -1,3 +1,5 @@
+package com.julespham.stacks_and_queues;
+
 public class MyQueue {
     Stack stack1;
     Stack stack2;
@@ -23,7 +25,7 @@ public class MyQueue {
             while (!isEmpty(stack1)) {
                 stack2.push(stack1.pop());
             }
-        }s
+        }
         return stack2.pop();
     }
     /**

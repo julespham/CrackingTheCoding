@@ -1,4 +1,4 @@
-package CodingProblems.Stacks;
+package com.julespham.stacks_and_queues;
 
 import java.util.ArrayList;
 import java.util.EmptyStackException;
@@ -49,8 +49,8 @@ public class SetOfStacks {
         if (getCurrentStack(index).getSize() == 0) {
             return 0;
         }
-            getCurrentStack(index).pop();
-        }
+        
+        return getCurrentStack(index).pop();
     }
 
     public void clear() {
@@ -86,6 +86,6 @@ public class SetOfStacks {
     }
 
     public void print() {
-        stacks.forEach(x-> x.printStack());
+        stacks.forEach(x-> x.print());
     }
 }

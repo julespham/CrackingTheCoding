@@ -1,3 +1,5 @@
+package com.julespham.stacks_and_queues;
+
 import java.util.Arrays;
 import java.util.EmptyStackException;
 
@@ -14,13 +16,13 @@ add(5, 0)
 */
 
 
-public class Multistack {
+public class MultiStack {
     int[] data;
     int capacity;
     int[] stackSizes;
 
 
-    public Multistack(int capacity, int numStacks) {
+    public MultiStack(int capacity, int numStacks) {
         this.capacity = capacity;
         stackSizes = new int[numStacks];
         data = new int[capacity*numStacks];
