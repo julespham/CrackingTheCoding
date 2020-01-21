@@ -3,12 +3,16 @@ load("@rules_java//java:defs.bzl", "java_library", "java_test")
 java_test(
     name = "combined_test",
     srcs = ["CombinedTest.java"],
-    test_class = "com.julespham.stacks_and_queues.CombinedTest",
+    test_class = "com.julespham.ctci.stacks_and_queues.CombinedTest",
     deps = [
         ":min_stack",
         ":multi_stack",
         ":my_queue",
         ":set_of_stacks",
+        ":stack",
+        ":sort_stack",
+        ":animal",
+        ":animal_shelter"
     ],
 )
 
@@ -33,6 +37,14 @@ java_library(
 )
 
 java_library(
+    name = "sort_stack",
+    srcs = ["SortStack.java"],
+    deps = [
+        ":stack",
+    ],
+)
+
+java_library(
     name = "set_of_stacks",
     srcs = ["SetOfStacks.java"],
     deps = [
@@ -44,4 +56,18 @@ java_library(
     name = "stack",
     srcs = ["Stack.java"],
     deps = [],
+)
+
+java_library(
+    name = "animal",
+    srcs = ["Animal.java"],
+    deps = [],
+)
+
+java_library(
+    name = "animal_shelter",
+    srcs = ["AnimalShelter.java"],
+    deps = [
+        ":animal"
+    ],
 )

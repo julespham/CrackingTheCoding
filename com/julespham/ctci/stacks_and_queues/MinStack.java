@@ -1,4 +1,4 @@
-package com.julespham.stacks_and_queues;
+package com.julespham.ctci.stacks_and_queues;
 
 import java.util.EmptyStackException;
 import java.util.LinkedList;

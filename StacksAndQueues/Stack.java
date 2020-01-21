@@ -1,5 +1,3 @@
-package com.julespham.ctci.stacks_and_queues;
-
 import java.util.Arrays;
 import java.util.EmptyStackException;
 
@@ -35,8 +33,9 @@ public class Stack {
     public void print() {
         Arrays.stream(data).forEach(System.out::println);
     }
+    // [10,5,2,1]
+    // [10]
+    public void sortStack() {
 
-    public int getSize() {
-        return this.size;
     }
 }

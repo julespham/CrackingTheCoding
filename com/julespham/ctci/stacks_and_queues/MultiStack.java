@@ -1,4 +1,4 @@
-package com.julespham.stacks_and_queues;
+package com.julespham.ctci.stacks_and_queues;
 
 import java.util.Arrays;
 import java.util.EmptyStackException;
